@@ -19,6 +19,13 @@ this.addEventListener("fetch", (event)=>{
             if(resp){
                 return resp
             }
+            return fetch(event.request).then(response => { 
+                caches.open('fetch').then((cache) => {
+                  cache.put(event.request, response.clone());
+                });
+                return response;
+              })
         })
+        
     )
 })
