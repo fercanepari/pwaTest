@@ -15,18 +15,22 @@ this.addEventListener("install", (event)=>{
 })
 
 this.addEventListener("fetch", (event)=>{
-    event.respondWith(
-        caches.match(event.request).then((resp)=>{
-            if(resp){
-                return resp
-            }
-            return fetch(event.request).then(response => { 
-                caches.open('fetch').then((cache) => {
-                  cache.put(event.request, response.clone());
-                });
-                return response;
-              })
-        })
-        
-    )
+    if(!navigator.onLine){
+        event.respondWith(
+            caches.match(event.request).then((resp)=>{
+                if(resp){
+                    return resp
+                }
+                return fetch(event.request).then(response => { 
+                    caches.open('fetch').then((cache) => {
+                    cache.put(event.request, response.clone());
+                    });
+                    return response;
+                })
+                let requestUrl = event.request.clone();
+                fetch(requestUrl)
+            })
+            
+        )
+    }
 })
