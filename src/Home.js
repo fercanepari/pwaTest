@@ -17,9 +17,7 @@ export default function Home() {
                 Usando el navegador!
               </div>
               :
-              <div class="alert alert-warning" role="alert">
-                App instalada!
-              </div>
+              null
             }
           </div>
         <div>
