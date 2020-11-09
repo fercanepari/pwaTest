@@ -1,25 +1,25 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 export default function Home() {
 
-  const [mode, setMode]=useState('web')
-
-  if (window.matchMedia('(display-mode: standalone)').matches) {
-    setMode('standalone')
-  }
+  //const [mode, setMode]=useState('web')
+  const isInStandaloneMode = () =>
+      (window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://');
 
     return (
       <div>
         <div>
             {
-              mode==='web'?
+              !isInStandaloneMode()?
               <div class="alert alert-warning" role="alert">
                 Usando el navegador!
               </div>
               :
-              null
+              <div class="alert alert-warning" role="alert">
+                App instalada
+              </div>
             }
-          </div>
+        </div>
         <div>
           <h1>Home component</h1>
         </div>
